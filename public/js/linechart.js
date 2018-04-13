@@ -126,7 +126,8 @@ d3.csv("data.csv", function(error, data) {
               d3.max(sources, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); }) ]);
     x2.domain(x.domain());
     y2.domain(y.domain());
-
+    // set the initial extent of brush
+    brush.extent([new Date(2017, 01, 15), new Date(2017, 11, 15)]);
     /** bind data and perform enter selection */
     var focuslineGroups = focus.selectAll("g")
         .data(sources)
@@ -188,6 +189,12 @@ d3.csv("data.csv", function(error, data) {
         .attr("y", -6)
         .attr("height", height2 + 7)
         .attr("fill-opacity","0.4")
+    
+        
+    brush();    
+    brush.event(context.select('g.x.brush'));
+
+        
 });
 
 /** define brush action */
